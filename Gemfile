@@ -9,7 +9,7 @@ gem 'devise'
 gem 'jwt'
 gem 'apitome'
 gem 'versionist'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.10.2'
 gem 'redis-rails'
 
 group :development, :test do

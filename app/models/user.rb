@@ -10,4 +10,8 @@ class User
   field :api_daily_limit,     type: Integer, default: 5 
 
   has_many :expenses
+
+  def generate_api_key
+    ApiKeyHandler.encoded_api_key(self.id)
+  end
 end

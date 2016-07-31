@@ -1,0 +1,23 @@
+{
+  "resources": [
+    {
+      "name": "V1",
+      "examples": [
+        {
+          "description": "Login: Returns API key on success",
+          "link": "v1/login:_returns_api_key_on_success.json",
+          "groups": "all",
+          "route": "users/login",
+          "method": "post"
+        },
+        {
+          "description": "Login: Returns Invalid credentials",
+          "link": "v1/login:_returns_invalid_credentials.json",
+          "groups": "all",
+          "route": "users/login",
+          "method": "post"
+        }
+      ]
+    }
+  ]
+}

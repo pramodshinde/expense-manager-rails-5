@@ -1,13 +1,13 @@
 class ApiThrottle
   class << self
 
-    def api_limit?(key, limit = 0)
+    def api_limit?(key, limit = 5)
       self.increment(key) > limit
     end
 
     def increment(key)
       client = Redis.new
-      p limit = client.incr(key.to_s)
+      limit = client.incr(key.to_s)
       limit
     end
 

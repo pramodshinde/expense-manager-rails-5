@@ -1,5 +1,6 @@
 class V1::UsersController < V1::BaseController
   skip_before_action :authenticate!, only: [:login]
+  before_action :api_throttle!, only: [:expenses]
 
   def index
     render json: User.all, each_serializer: V1::UserSerializer

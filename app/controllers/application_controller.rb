@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
   before_action :authenticate!
-  before_action :api_throttle!
   
   include ActionController::Serialization
   X_API_KEY = 'X-Api-Key'

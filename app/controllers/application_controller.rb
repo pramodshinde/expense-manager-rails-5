@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :authenticate!
+  before_action :api_throttle!
   
   include ActionController::Serialization
   X_API_KEY = 'X-Api-Key'
@@ -22,6 +23,12 @@ class ApplicationController < ActionController::API
 
   def api_key?
     request.headers[X_API_KEY].present?
+  end
+
+  def write_limit_hearders
+    current_limit = ApiThrottle.available_limit(@current_user.id, @current_user.api_daily_limit)
+    self.headers['X-Api-Daily-Limit'] = @current_user.api_daily_limit
+    self.headers['X-Api-Daily-Limit-Remaining'] = current_limit 
   end
 
   def render_expired_message
@@ -50,5 +57,16 @@ class ApplicationController < ActionController::API
     response_hash[:info] = info if info
     render json: response_hash, status: status 
   end
+  
+  def api_throttle!
+    write_limit_hearders
+    if ApiThrottle.api_limit?(@current_user.id)
+      render_message(
+        message: "Daily Api limit reached", 
+        info: "visit: http://myapp.com/help",
+        status: :too_many_requests
+      )
+      return false
+    end
+  end
 end
-

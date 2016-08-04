@@ -25,8 +25,8 @@ class ApplicationController < ActionController::API
   end
 
   def write_limit_hearders
-    current_limit = ApiThrottle.available_limit(@current_user.id, @current_user.api_daily_limit)
-    self.headers['X-Api-Daily-Limit'] = @current_user.api_daily_limit
+    current_limit = ApiThrottle.available_limit(@current_user.id, 3)
+    self.headers['X-Api-Daily-Limit'] = 3 #@current_user.api_daily_limit
     self.headers['X-Api-Daily-Limit-Remaining'] = current_limit 
   end
 

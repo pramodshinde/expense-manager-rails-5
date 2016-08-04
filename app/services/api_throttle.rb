@@ -1,7 +1,7 @@
 class ApiThrottle
   class << self
 
-    def api_limit?(key, limit = 5)
+    def api_limit?(key, limit = 3)
       self.increment(key) > limit
     end
 
